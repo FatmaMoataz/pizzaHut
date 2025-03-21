@@ -5,7 +5,7 @@ import { cartContext } from '../../context/cartContext';
 
 export default function Favorites() {
   const { favorites, removeFromFavorites, refreshFavorites } = useContext(favoritesContext);
-  const { addToCart, getCart } = useContext(cartContext);
+  const { addToCart, getCart } = useContext(cartContext); 
 
   async function addProductToCart(product) {
     try {
@@ -15,13 +15,14 @@ export default function Favorites() {
       console.error(error);
     }
   }
+  
 
   async function removeProductFromFavorites(id) {
     try {
       await removeFromFavorites(id);
       refreshFavorites();
     } catch (error) {
-      console.error(error);
+      console.error("Error removing from favorites:", error);
     }
   }
 

@@ -21,8 +21,8 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-
-        { path:"home", element: <Home /> },
+        { index: true, element: <Home /> }, 
+        { path: "home", element: <Home /> },
         { path: "menu", element: <Suspense><Menu/> </Suspense>  },
         { path: "contact", element:  <Suspense><Contact/></Suspense>  },
         { path: "about", element:   <About/> },

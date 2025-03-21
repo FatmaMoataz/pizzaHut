@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { cartContext } from '../../context/cartContext';
 import { Helmet } from 'react-helmet';
-import Checkout from '../Checkout/Checkout';
 import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
@@ -13,7 +12,6 @@ export default function Cart() {
     updateCount,
     clearCart,
     numOfCartItems,
-    totalCartPrice,
   } = useContext(cartContext);
 
   const handleRemoveProduct = (id) => {

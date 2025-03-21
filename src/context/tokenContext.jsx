@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
 
-export let tokenContext = createContext()
+export let tokenContext = createContext();
 
-export default function TokenContextProvider({children}) {
+export default function TokenContextProvider({ children }) {
+  const [user, setUser] = useState(null);
 
-const [token, setToken] = useState(null)
-return (
-    <tokenContext.Provider value={{ token, setToken }}>
+  return (
+    <tokenContext.Provider value={{ user, setUser }}>
       {children}
     </tokenContext.Provider>
   );

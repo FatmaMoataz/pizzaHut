@@ -10,26 +10,25 @@ export default function Menu() {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { favorites, addToFavorites, removeFromFavorites } = useContext(favoritesContext);
-  const { addToCart } = useContext(cartContext);
+  const { addToCart, getCart } = useContext(cartContext);
 
-  async function getAllMenu() {
-    setLoading(true);
-    try {
-      let response = await axios.get(`https://forkify-api.herokuapp.com/api/search?q=pizza`);
-      const extractedData = response.data.recipes.map((recipe) => ({
-        id: recipe.recipe_id,
-        title: recipe.title,
-        image: recipe.image_url,
-        socialRank: recipe.social_rank,
-      }));
-
-      setMenuItems(extractedData);
-    } catch (error) {
-      console.error("Error fetching menu:", error);
-    }
-    setLoading(false);
+async function getAllMenu() {
+  setLoading(true);
+  try {
+    let response = await axios.get(`https://forkify-api.herokuapp.com/api/search?q=pizza`);
+    const extractedData = response.data.recipes.map((recipe) => ({
+      id: recipe.recipe_id,
+      title: recipe.title,
+      image: recipe.image_url,
+      price: 100,
+      socialRank: recipe.social_rank,
+    }));
+    setMenuItems(extractedData);
+  } catch (error) {
+    console.error("Error fetching menu:", error);
   }
-
+  setLoading(false);
+}
   useEffect(() => {
     getAllMenu();
   }, []);
@@ -92,10 +91,10 @@ export default function Menu() {
                     className={`fa-${isItemInFavorites(item.id) ? "solid" : "regular"} fa-heart text-2xl cursor-pointer text-red-500`}
                     onClick={() => handleFavoriteClick(item)}
                   ></i>
+<button onClick={() => { addToCart(item); getCart(); }} className="bg-[#ee3d40] hover:bg-red-800 text-white px-4 py-2 rounded-sm">
+  Add To Cart
+</button>
 
-                  <button onClick={() => addToCart(item)} className="bg-[#ee3d40] hover:bg-red-800 text-white px-4 py-2 rounded-sm">
-                    Add To Cart
-                  </button>
                 </div>
               </div>
             ))

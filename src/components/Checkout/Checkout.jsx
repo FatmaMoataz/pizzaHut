@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { BounceLoader } from "react-spinners";
 import * as Yup from "yup";
+import { cartContext } from "../../context/cartContext";
 import { checkoutContext } from "../../context/checkoutContext";
 
 export default function Checkout() {
@@ -16,7 +17,7 @@ export default function Checkout() {
     city: "",
   };
 
-  async function callPayment(values) {
+  const callPayment = async (values) => {
     try {
       setIsCallingApi(true);
 
@@ -35,7 +36,7 @@ export default function Checkout() {
     } finally {
       setIsCallingApi(false);
     }
-  }
+  };
 
   const validationSchema = Yup.object().shape({
     details: Yup.string().required("Required"),
