@@ -13,11 +13,8 @@ export default function CartContextProvider({ children }) {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const getCart = () => {
-    return JSON.parse(localStorage.getItem('cart')) || [];
-  };
-  
 
+  
   const addToCart = (product) => {
     const token = localStorage.getItem("token");
     
@@ -65,7 +62,6 @@ export default function CartContextProvider({ children }) {
         clearCart,
         numOfCartItems,
         totalCartPrice,
-        getCart
       }}
     >
       {children}
