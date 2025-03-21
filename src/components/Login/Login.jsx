@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 export default function Login() {
   const [isCallingApi, setIsCallingApi] = useState(false);
   const [ApiError, setApiError] = useState(null);
+  const { setUser } = useContext(tokenContext);
 
   let navigate = useNavigate();
 
@@ -19,21 +20,20 @@ export default function Login() {
 
   async function callLogin(values) {
     try {
-      setIsCallingApi(true); 
-      setApiError(null);  
+      setIsCallingApi(true);
+      setApiError(null);
       let { data } = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signin`, values);
-      console.log(data);
       localStorage.setItem("userToken", data.token);
+
+      setUser({ token: data.token });
+
       setIsCallingApi(false);
       navigate('/menu');
     } catch (error) {
-    
-      setIsCallingApi(false); 
+      setIsCallingApi(false);
       setApiError(error.response?.data?.message || 'An unexpected error occurred. Please try again.');
-      console.log(error);
     }
   }
-
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email format').required('Required'),
     password: Yup.string()
